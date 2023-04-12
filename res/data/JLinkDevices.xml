@@ -35703,4 +35703,9 @@
       <AliasInfo Name="Z32F38412ALS" />
     </DeviceInfo>
   </VendorInfo >
+  <VendorInfo Name="MIPS" >
+    <DeviceInfo Name="PIC32MZ1024EFG144" Core="M5150" WorkRAMStartAddr="0xa0003200" WorkRAMSize="0x00000200" />
+      <FlashBankInfo StartAddr="0xbfc00000" Size="0x00000800" />
+    </DeviceInfo >
+  </VendorInfo >
 </DeviceDatabase>

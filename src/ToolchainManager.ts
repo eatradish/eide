@@ -2256,10 +2256,6 @@ class MTI_GCC implements IToolchian {
                 cppToolsConfig.compilerArgs.push(`-mabi=${builderOpts.global['abi']}`);
             }
 
-            if (builderOpts.global['code-model']) {
-                cppToolsConfig.compilerArgs.push(`-mcmodel=${builderOpts.global['code-model']}`);
-            }
-
             // pass global args for cpptools
             if (typeof builderOpts.global['misc-control'] == 'string') {
                 const pList = builderOpts.global['misc-control'].trim().split(/\s+/);
@@ -2343,8 +2339,7 @@ class MTI_GCC implements IToolchian {
             global: {
                 "output-debug-info": 'enable',
                 "arch": "mips32r2",
-                "abi": "32",
-                "code-model": "medlow"
+                "abi": "32"
             },
             'c/cpp-compiler': {
                 "language-c": "c11",

@@ -2346,19 +2346,19 @@ class MTI_GCC implements IToolchian {
                 "language-cpp": "c++11",
                 "optimization": 'level-debug',
                 "warnings": "all-warnings",
-                "one-elf-section-per-function": true,
-                "one-elf-section-per-data": true,
-                "C_FLAGS": "-Wl,-Bstatic",
+                "one-elf-section-per-function": false,
+                "one-elf-section-per-data": false,
+                "C_FLAGS": "-fmessage-length=0 -fno-common -EL -msoft-float -mno-mips16 -mno-micromips -mmcu -G 0",
                 "CXX_FLAGS": ""
             },
             'asm-compiler': {
-                "ASM_FLAGS": "-Wl,-Bstatic"
+                "ASM_FLAGS": "-fmessage-length=0 -fno-common -EL -msoft-float -mno-mips16 -mno-micromips -mmcu -G 0"
             },
             linker: {
                 "output-format": "elf",
                 "remove-unused-input-sections": true,
-                "LD_FLAGS": "-Wl,--cref -Wl,--no-relax --specs=nosys.specs --specs=nano.specs -nostartfiles",
-                "LIB_FLAGS": ""
+                "LD_FLAGS": "-nostdlib -Wcast-align=strict",
+                "LIB_FLAGS": "-lm -lgcc"
             }
         };
     }

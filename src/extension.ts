@@ -276,6 +276,12 @@ export async function activate(context: vscode.ExtensionContext) {
     // launch done
     GlobalEvent.emit('extension_launch_done');
     GlobalEvent.emit('globalLog', newMessage('Info', 'Embedded IDE launch done'));
+
+    subscriptions.push(vscode.commands.registerCommand('eide.welcome', () => {
+        vscode.commands.executeCommand('workbench.action.openWalkthrough', 'cl.eide#eide.startup.walkthroughs', true)
+    }));
+
+    await vscode.commands.executeCommand('eide.welcome');
 }
 
 // this method is called when your extension is deactivated
@@ -902,7 +908,7 @@ async function checkAndInstallRuntime() {
                     const pkgSha256 = sevenZip.sha256(pkgFile);
                     const reqSha256 = 'A085714B879DC1CB85538109640E22A2CBFF2B91195DF540A5F98AEA09AF2C1E'.toLowerCase();
                     if (pkgSha256 == reqSha256) { pkgReady = true; } // sha256 verified, use cached old file
-                    else { try { fs.unlinkSync(pkgFile.path); } catch{ } } // sha256 verify failed, del old file
+                    else { try { fs.unlinkSync(pkgFile.path); } catch { } } // sha256 verify failed, del old file
                 }
 
                 if (!pkgReady) { // if no cached pkg, download it
@@ -1490,7 +1496,7 @@ class MapViewEditorProvider implements vscode.CustomTextEditorProvider {
             }
 
             if (!isSupported) {
-                webviewPanel.webview.html = this.genHtmlCont(title, 
+                webviewPanel.webview.html = this.genHtmlCont(title,
                     `<span class="error">Error</span>: We don't support this toolchain type: '${conf.tool}' yet !`);
                 return;
             }
@@ -1610,7 +1616,7 @@ class MapViewEditorProvider implements vscode.CustomTextEditorProvider {
 
                         if (toolchain.parseMapFile) {
                             let ret = toolchain.parseMapFile(vInfo.mapPath);
-                            if (ret instanceof Error) 
+                            if (ret instanceof Error)
                                 throw ret;
                             else
                                 lines = ret;

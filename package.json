@@ -500,6 +500,10 @@
         ],
         "commands": [
             {
+                "command": "eide.welcome",
+                "title": "EIDE Welcome"
+            },
+            {
                 "command": "eide.project.save",
                 "title": "%eide.project.save%"
             },

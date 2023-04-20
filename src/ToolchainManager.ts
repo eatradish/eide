@@ -2408,7 +2408,6 @@ class MTI_GCC implements IToolchian {
                 }
             }
 
-
             // pass global args for cpptools
             if (typeof builderOpts.global['misc-control'] == 'string') {
                 const pList = builderOpts.global['misc-control'].trim().split(/\s+/);
@@ -2536,7 +2535,6 @@ class RISCV_GCC implements IToolchian {
     constructor() {
         // nothing todo
     }
-
     /* 
         private getIncludeList(gccDir: string): string[] | undefined {
             try {
@@ -2663,10 +2661,6 @@ class RISCV_GCC implements IToolchian {
 
             if (builderOpts.global['abi']) {
                 cppToolsConfig.compilerArgs.push(`-mabi=${builderOpts.global['abi']}`);
-            }
-
-            if (builderOpts.global['code-model']) {
-                cppToolsConfig.compilerArgs.push(`-mcmodel=${builderOpts.global['code-model']}`);
             }
 
             // pass global args for cpptools

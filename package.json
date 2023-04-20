@@ -448,7 +448,7 @@
                         "type": "string",
                         "scope": "resource",
                         "markdownDescription": "%settings.mips.gcc.install.folder%",
-                        "default": ""
+                        "default": "${userRoot}/.eide/tools/mips_mti"
                     },
                     "EIDE.MIPS.ToolPrefix": {
                         "type": "string",

@@ -146,8 +146,8 @@
     "settings.option.mapView.parser.depth": "显示 *.map.view 时，obj 文件路径的深度限制。大于该深度的 obj 文件将被忽略",
     "settings.option.show.output.files": "在项目资源管理器中显示编译输出文件",
 
-    "string.eide.startup.walkthroughs": "Embedded IDE 演示",
-    "string.eide.startup.walkthroughs.detail": "我们将向您展示如何开始使用 Embedded IDE 。",
+    "string.eide.startup.walkthroughs": "MIPS Studio 演示",
+    "string.eide.startup.walkthroughs.detail": "我们将向您展示如何开始使用 MIPS Studio 。",
     "string.eide.setup.toolchain": "设置编译器路径",
     "string.eide.setup.toolchain.detail": "在开始之前，我们需要设置工具链(编译器)的路径。\n[设置工具链](command:eide.operation.install_toolchain)",
     "string.eide.start_project": "开始你的项目",

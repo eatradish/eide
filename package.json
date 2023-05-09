@@ -141,18 +141,6 @@
                 "description": "%string.eide.startup.walkthroughs.detail%",
                 "steps": [
                     {
-                        "id": "eide.wt.install_tool",
-                        "title": "%string.eide.setup.toolchain%",
-                        "description": "%string.eide.setup.toolchain.detail%",
-                        "media": {
-                            "image": "img/setup_toochain.png",
-                            "altText": "setup toolchain"
-                        },
-                        "completionEvents": [
-                            "onCommand:eide.operation.install_toolchain"
-                        ]
-                    },
-                    {
                         "id": "eide.wt.start_project",
                         "title": "%string.eide.start_project%",
                         "description": "%string.eide.start_project.detail%",

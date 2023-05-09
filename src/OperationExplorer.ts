@@ -342,21 +342,6 @@ export class OperationExplorer {
                 {
                     const itemList: ProjectTemplatePickItem[] = [
                         {
-                            label: view_str$operation$empty_8bit_prj,
-                            detail: 'for 8051, stm8, pic ... chips',
-                            type: 'C51'
-                        },
-                        {
-                            label: view_str$operation$empty_cortex_prj,
-                            detail: 'for cortex-m chips',
-                            type: 'ARM'
-                        },
-                        {
-                            label: view_str$operation$empty_riscv_prj,
-                            detail: 'for risc-v chips',
-                            type: 'RISC-V'
-                        },
-                        {
                             label: view_str$operation$empty_mips_prj,
                             detail: 'for mips chips',
                             type: 'MIPS'

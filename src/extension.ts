@@ -285,7 +285,7 @@ export async function activate(context: vscode.ExtensionContext) {
         await vscode.commands.executeCommand('eide.welcome');
     }
 
-    await vscode.commands.executeCommand('workbench.action.toggleAuxiliaryBar');
+    await vscode.commands.executeCommand('workbench.action.focusAuxiliaryBar');
 }
 
 // this method is called when your extension is deactivated

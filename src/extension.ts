@@ -278,10 +278,13 @@ export async function activate(context: vscode.ExtensionContext) {
     GlobalEvent.emit('globalLog', newMessage('Info', 'Embedded IDE launch done'));
 
     subscriptions.push(vscode.commands.registerCommand('eide.welcome', () => {
-        vscode.commands.executeCommand('workbench.action.openWalkthrough', 'cl.eide#eide.startup.walkthroughs', true)
+        vscode.commands.executeCommand('workbench.action.openWalkthrough', 'cl.eide#eide.startup.walkthroughs', false)
     }));
 
-    await vscode.commands.executeCommand('eide.welcome');
+    if (vscode.workspace.workspaceFolders === undefined) {
+        await vscode.commands.executeCommand('eide.welcome');
+    }
+
     await vscode.commands.executeCommand('workbench.action.toggleAuxiliaryBar');
 }
 

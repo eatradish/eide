@@ -151,18 +151,6 @@
                         "completionEvents": [
                             "onContext:cl.eide.projectActived"
                         ]
-                    },
-                    {
-                        "id": "eide.wt.docs",
-                        "title": "%string.eide.open_docs%",
-                        "description": "%string.eide.open_docs.detail%",
-                        "media": {
-                            "image": "img/open_docs.png",
-                            "altText": "eide docs"
-                        },
-                        "completionEvents": [
-                            "onLink:https://em-ide.com/"
-                        ]
                     }
                 ]
             }

@@ -156,7 +156,7 @@
     "string.eide.startup.walkthroughs": "Welcome to MIPS Studio",
     "string.eide.startup.walkthroughs.detail": "Get started with MIPS Studio.",
     "string.eide.start_project": "New Project",
-    "string.eide.start_project.detail": "You may create a new project via the \"New Project\" wizard...\n[New Project](command:eide.operation.new_project)\nOr open an existing project...\n[Open Project](command:eide.operation.import_project)\nClick the link will open the home page that may help you learn more about usage.\n[Embedded IDE](https://em-ide.com/)",
+    "string.eide.start_project.detail": "You may create a new project via the \"New Project\" wizard...\n[New Project](command:eide.operation.new_project)\nOr open an existing project...\n[Open Project](command:eide.operation.open_project)\nClick the link will open the home page that may help you learn more about usage.\n[Embedded IDE](https://em-ide.com/)",
     "string.eide.open_docs.detail": "If you need technical support with your project, you may find documentation and support information from our website.\n[Technical Support](https://oss.cipunited.com/new/)",
 
     "string.eide.project.welcome": "There are no projects in this workspace !\n[New Project](command:eide.operation.new_project)\n[Open Project](command:eide.operation.open_project)\n[Import Project](command:eide.operation.import_project)"

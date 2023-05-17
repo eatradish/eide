@@ -388,65 +388,11 @@ export class OperationExplorer {
             case 'internal-template':
                 {
                     const itemList: ProjectTemplatePickItem[] = [
-                        {
-                            label: '8051 Quickstart',
-                            detail: 'Universal 8051 quickstart project',
-                            templateName: 'mcs51',
-                            type: 'C51'
-                        },
-                        {
-                            label: '89C52 SDCC Quickstart',
-                            detail: '89c52 quickstart project (with sdcc compiler)',
-                            templateName: '89c52_sdcc',
-                            type: 'C51'
-                        },
-                        {
-                            label: 'STC15 Quickstart',
-                            detail: 'stc15 quickstart project',
-                            templateName: 'stc15',
-                            type: 'C51'
-                        },
-                        {
-                            label: 'AVR FreeRTOS Quickstart',
-                            detail: 'avr atmega128 quickstart project (FreeRTOS) (WinAVR-GCC compiler)',
-                            templateName: 'avr_atmega128_rtos',
-                            type: 'ANY-GCC'
-                        },
-                        {
-                            label: 'STM8 Quickstart With COSMIC Compiler',
-                            detail: 'stm8 general quickstart project (COSMIC STM8 Compiler)',
-                            templateName: 'cosmic_stm8',
-                            type: 'C51'
-                        },
-                        {
-                            label: 'STM8 Quickstart',
-                            detail: 'stm8s103 quickstart project',
-                            templateName: 'stm8s103f3',
-                            type: 'C51'
-                        },
-                        {
-                            label: 'STM8 SDCC Quickstart',
-                            detail: 'stm8s103 quickstart project (with sdcc compiler)',
-                            templateName: 'stm8s103_sdcc',
-                            type: 'C51'
-                        },
-                        {
-                            label: 'STM32F1 Quickstart',
-                            detail: 'stm32f1xx quickstart project',
-                            templateName: 'stm32f1xx',
-                            type: 'ARM'
-                        },
-                        {
-                            label: 'STM32F1 GCC Quickstart',
-                            detail: 'stm32f1xx gcc quickstart project (with gcc compiler)',
-                            templateName: 'stm32f1xx_gcc',
-                            type: 'ARM'
-                        },
-                        {
-                            label: 'GD32VF103 Quickstart',
-                            detail: 'gd32vf103 quickstart project (riscv mcu)',
-                            templateName: 'gd32vf103_riscv',
-                            type: 'RISC-V'
+                        { 
+                            label: 'PIC32MZ1024EFG144 Quickstart', 
+                            detail: 'PIC32MZ1024EFG144 Quickstart project', 
+                            templateName: 'pic32mz', 
+                            type: 'MIPS'
                         }
                     ];
 

@@ -146,14 +146,11 @@
     "settings.option.mapView.parser.depth": "显示 *.map.view 时，obj 文件路径的深度限制。大于该深度的 obj 文件将被忽略",
     "settings.option.show.output.files": "在项目资源管理器中显示编译输出文件",
 
-    "string.eide.startup.walkthroughs": "MIPS Studio 演示",
-    "string.eide.startup.walkthroughs.detail": "我们将向您展示如何开始使用 MIPS Studio 。",
-    "string.eide.setup.toolchain": "设置编译器路径",
-    "string.eide.setup.toolchain.detail": "在开始之前，我们需要设置工具链(编译器)的路径。\n[设置工具链](command:eide.operation.install_toolchain)",
-    "string.eide.start_project": "开始你的项目",
-    "string.eide.start_project.detail": "现在，我们可以创建一个项目 ！\n[New Project](command:eide.operation.new_project)\n或者导入其他IDE的项目 ！\n[Import Project](command:eide.operation.import_project)",
-    "string.eide.open_docs": "了解更多",
-    "string.eide.open_docs.detail": "点击链接可以打开主页，也许能帮您了解到更多的用法。\n[Embedded IDE](https://em-ide.com/)",
+    "string.eide.startup.walkthroughs": "欢迎使用 MIPS Studio",
+    "string.eide.startup.walkthroughs.detail": "简单几步，轻松上手。",
+    "string.eide.start_project": "启动向导",
+    "string.eide.start_project.detail": "点击“新建项目”打开项目初始化向导\n[新建项目](command:eide.operation.new_project)\n点击“打开项目”即可载入现有项目\n[打开项目](command:eide.operation.import_project)",
+    "string.eide.open_docs.detail": "如需技术支持，敬请垂询 CIP 官方提供的用户文档和支持信息\n[技术支持](https://oss.cipunited.com/new/)",
 
     "string.eide.project.welcome": "该工作区中没有任何项目！\n[新建项目](command:eide.operation.new_project)\n[打开项目](command:eide.operation.open_project)\n[导入项目](command:eide.operation.import_project)\n点击链接可以打开主页，也许能帮您了解到更多的用法。\n[Embedded IDE](https://em-ide.com/)"
 }

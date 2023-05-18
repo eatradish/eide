@@ -292,7 +292,7 @@
                         "type": "string",
                         "scope": "machine",
                         "markdownDescription": "%settings.template.repo.url%",
-                        "default": "github0null/eide-templates/contents"
+                        "default": "mips-studio/eide-templates/contents/mips-studio"
                     },
                     "EIDE.Repository.Template.GithubPersonalToken": {
                         "type": "string",

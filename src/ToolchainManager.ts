@@ -2501,7 +2501,7 @@ class MTI_GCC implements IToolchian {
                 "warnings": "all-warnings",
                 "one-elf-section-per-function": false,
                 "one-elf-section-per-data": false,
-                "C_FLAGS": "-EL",
+                "C_FLAGS": "",
                 "CXX_FLAGS": ""
             },
             'asm-compiler': {

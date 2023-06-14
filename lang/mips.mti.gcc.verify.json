@@ -159,7 +159,7 @@
                 },
                 "abi": {
                     "readable_name": "ABI",
-                    "readable_name.zh-cn": "调用约定（abi）",
+                    "readable_name.zh-cn": "调用约定（ABI）",
                     "markdownDescription": "Integer and floating-point calling convention",
                     "description.zh-cn": "整数和浮点调用约定",
                     "size": "small",

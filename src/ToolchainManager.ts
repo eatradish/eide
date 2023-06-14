@@ -2399,8 +2399,8 @@ class MTI_GCC implements IToolchian {
                 cppToolsConfig.compilerArgs.push(`-mabi=${builderOpts.global['abi']}`);
             }
 
-            if (typeof builderOpts.global['$float-abi-type'] == 'string') {
-                const abiType = builderOpts.global['$float-abi-type'];
+            if (typeof builderOpts.global['float-abi-type'] == 'string') {
+                const abiType = builderOpts.global['float-abi-type'];
                 if (abiType === 'soft-float') {
                     cppToolsConfig.compilerArgs.push("-msoft-float");
                 } else if (abiType === 'hard-float') {

@@ -140,7 +140,7 @@
                         "dwarf-3"
                     ]
                 },
-                "$float-abi-type": {
+                "float-abi-type": {
                     "markdownDescription": "Hardware floating-point ABI",
                     "description.zh-cn": "硬件浮点 ABI",
                     "type": "string",

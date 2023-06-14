@@ -144,7 +144,7 @@
                     "markdownDescription": "Hardware floating-point ABI",
                     "description.zh-cn": "硬件浮点 ABI",
                     "type": "string",
-                    "default": "softfp",
+                    "default": "soft-float",
                     "enum": [
                         "soft-float",
                         "hard-float"

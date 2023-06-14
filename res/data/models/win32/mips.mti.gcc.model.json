@@ -30,6 +30,114 @@
             ],
             "location": "first"
         },
+        "endianness": {
+            "type": "selectable",
+            "command": {
+                "little-endian": "-EL",
+                "big-endian": "-EB"
+            },
+            "group": [
+                "c",
+                "cpp",
+                "asm",
+                "linker"
+            ],
+            "location": "first"
+        },
+        "float-abi-type": {
+            "type": "selectable",
+            "command": {
+                "soft-float": "-msoft-float",
+                "hard-float": "-mhard-float"
+            },
+            "group": [
+                "c",
+                "cpp",
+                "asm",
+                "linker"
+            ]
+        },
+        "fpu-width": {
+            "type": "selectable",
+            "command": {
+                "32": "-mfp32",
+                "64": "-mfp64"
+            },
+            "group": [
+                "c",
+                "cpp",
+                "asm",
+                "linker"
+            ],
+            "location": "first"
+        },
+        "nan-abi": {
+            "type": "selectable",
+            "command": {
+                "2008": "-mnan=2008",
+                "legacy": "-mnan=legacy"
+            },
+            "group": [
+                "c",
+                "cpp",
+                "asm",
+                "linker"
+            ],
+            "location": "first"
+        },
+        "mips16": {
+            "type": "selectable",
+            "command": {
+                "true": "-mips16",
+                "false": "-mno-mips16"
+            },
+            "group": [
+                "c",
+                "cpp",
+                "asm",
+                "linker"
+            ],
+            "location": "first"
+        },
+        "micromips": {
+            "type": "selectable",
+            "command": {
+                "true": "-mmicromips",
+                "false": "-mno-micromips"
+            },
+            "group": [
+                "c",
+                "cpp",
+                "asm",
+                "linker"
+            ],
+            "location": "first"
+        },
+        "mcu": {
+            "type": "selectable",
+            "command": {
+                "true": "-mmcu",
+                "false": "-mno-mcu"
+            },
+            "group": [
+                "c",
+                "cpp",
+                "asm",
+                "linker"
+            ],
+            "location": "first"
+        },
+        "small-data-size-threshold": {
+            "type": "value",
+            "command": "-G",
+            "group": [
+                "c",
+                "cpp",
+                "asm",
+                "linker"
+            ],
+            "location": "first"
+        },
         "optimization": {
             "type": "selectable",
             "command": {

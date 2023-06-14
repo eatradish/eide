@@ -2408,6 +2408,47 @@ class MTI_GCC implements IToolchian {
                 }
             }
 
+            const fpuWidth = builderOpts.global['fpu-width'];
+            if (fpuWidth === '32') {
+                cppToolsConfig.compilerArgs.push("-mfp32");
+            } else if (fpuWidth === '64') {
+                cppToolsConfig.compilerArgs.push("-mfp64");
+            }
+
+            const nanAbi = builderOpts.global['nan-abi'];
+            if (nanAbi === '2008') {
+                cppToolsConfig.compilerArgs.push("-mnan=2008");
+            } else if (fpuWidth === 'legacy') {
+                cppToolsConfig.compilerArgs.push("-mnan=legacy");
+            }
+
+            const endianness = builderOpts.global['endianness'];
+            if (endianness === 'little-endian') {
+                cppToolsConfig.compilerArgs.push("-EL");
+            } else if (fpuWidth === 'big-endian') {
+                cppToolsConfig.compilerArgs.push("-EB");
+            }
+
+            if (builderOpts.global['mips16']) {
+                cppToolsConfig.compilerArgs.push("-mips16");
+            } else {
+                cppToolsConfig.compilerArgs.push("-mno-mips16");
+            }
+
+            if (builderOpts.global['micromips']) {
+                cppToolsConfig.compilerArgs.push("-mmicromips");
+            } else {
+                cppToolsConfig.compilerArgs.push("-mno-micromips");
+            }
+
+            if (builderOpts.global['mcu']) {
+                cppToolsConfig.compilerArgs.push("-mmcu");
+            } else {
+                cppToolsConfig.compilerArgs.push("-mno-mcu");
+            }
+
+            // {...|0}: fallback non-numeric values back to "0".
+            cppToolsConfig.compilerArgs.push(`-G${builderOpts.global['small-data-size-threshold']|0}`)
 
             // pass global args for cpptools
             if (typeof builderOpts.global['misc-control'] == 'string') {
@@ -2492,7 +2533,14 @@ class MTI_GCC implements IToolchian {
             global: {
                 "output-debug-info": 'enable',
                 "arch": "mips32r5",
-                "abi": "32"
+                "abi": "32",
+                "float-abi-type": "soft-float",
+                "fpu-width": "32",
+                "nan-abi": "2008",
+                "endianness": "little-endian",
+                "mips16": true,
+                "micromips": false,
+                "mcu": true
             },
             'c/cpp-compiler': {
                 "language-c": "c11",

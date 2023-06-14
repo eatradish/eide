@@ -150,6 +150,36 @@
                         "hard-float"
                     ]
                 },
+                "fpu-width": {
+                    "markdownDescription": "Floating-point register width",
+                    "description.zh-cn": "浮点寄存器宽度",
+                    "type": "string",
+                    "default": "32",
+                    "enum": [
+                        "32",
+                        "64"
+                    ]
+                },
+                "nan-abi": {
+                    "markdownDescription": "NaN (Not-a-Number) floating-point encoding",
+                    "description.zh-cn": "浮点非数（NaN，Not-a-Number）编码方式",
+                    "type": "string",
+                    "default": "2008",
+                    "enum": [
+                        "2008",
+                        "legacy"
+                    ]
+                },
+                "endianness": {
+                    "markdownDescription": "Endianness",
+                    "description.zh-cn": "端序",
+                    "type": "string",
+                    "default": "little-endian",
+                    "enum": [
+                        "little-endian",
+                        "big-endian"
+                    ]
+                },
                 "arch": {
                     "markdownDescription": "Arch",
                     "description.zh-cn": "指令集（arch）",
@@ -164,6 +194,27 @@
                     "description.zh-cn": "整数和浮点调用约定",
                     "size": "small",
                     "auto_complete_ctx": "gcc.compiler.abis"
+                },
+                "mips16": {
+                    "markdownDescription": "Enable the MIPS16 ASE",
+                    "description.zh-cn": "使用 MIPS16 特定应用扩展 (ASE)",
+                    "type": "boolean"
+                },
+                "micromips": {
+                    "markdownDescription": "Enable the microMIPS ASE",
+                    "description.zh-cn": "使用 microMIPS 特定应用扩展 (ASE)",
+                    "type": "boolean"
+                },
+                "mcu": {
+                    "markdownDescription": "Enable the MCU ASE",
+                    "description.zh-cn": "使用 MCU 特定应用扩展 (ASE)",
+                    "type": "boolean"
+                },
+                "small-data-size-threshold": {
+                    "markdownDescription": "Byte-size threshold for small data sections",
+                    "description.zh-cn": "数据段大小阈值（字节）",
+                    "type": "string",
+                    "default": "0"
                 },
                 "misc-control": {
                     "markdownDescription": "Other Global Options",

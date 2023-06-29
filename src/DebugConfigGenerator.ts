@@ -197,17 +197,24 @@ class CortexDebugConfigProvider extends IDebugConfigProvider {
                 else if ('openocd' == debugConfig.servertype) {
                     const openocdConf = <OpenOCDFlashOptions>JSON.parse(JSON.stringify(prjConfig.uploadConfig));
 
-                    if (!openocdConf.interface.startsWith('${workspaceFolder}/')) {
-                        openocdConf.interface = `interface/${openocdConf.interface}`;
-                    }
-                    if (!openocdConf.target.startsWith('${workspaceFolder}/')) {
-                        openocdConf.target = `target/${openocdConf.target}`;
-                    }
+                    if (!openocdConf.use_custom_args) {
 
-                    debugConfig.configFiles = [
-                        `${openocdConf.interface}.cfg`,
-                        `${openocdConf.target}.cfg`
-                    ];
+                        if (!openocdConf.interface.startsWith('${workspaceFolder}/')) {
+                            openocdConf.interface = `interface/${openocdConf.interface}`;
+                        }
+                        if (!openocdConf.target.startsWith('${workspaceFolder}/')) {
+                            openocdConf.target = `target/${openocdConf.target}`;
+                        }
+    
+                        debugConfig.configFiles = [
+                            `${openocdConf.interface}.cfg`,
+                            `${openocdConf.target}.cfg`
+                        ];
+
+                    } else {
+                        // TODO: remind the user to fill in openocd related entries themselves:
+                        // configFiles, searchDir, openOCDPreConfigLaunchCommands and openOCDLaunchCommands
+                    }
                 }
 
                 else if ('jlink' == debugConfig.servertype) {

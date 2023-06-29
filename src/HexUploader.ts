@@ -66,7 +66,7 @@ export class HexUploaderManager {
         { type: 'JLink', description: 'for Cortex-M chips, only JLink interface', filters: ['AC5', 'AC6', 'GCC', 'IAR_ARM', 'RISCV_GCC', 'ANY_GCC'] },
         { type: 'STLink', description: 'for STM32 chips, only STLink interface', filters: ['AC5', 'AC6', 'GCC', 'IAR_ARM'] },
         { type: 'pyOCD', description: 'for Cortex-M chips', filters: ['AC5', 'AC6', 'GCC', 'IAR_ARM', 'RISCV_GCC', 'ANY_GCC'] },
-        { type: 'OpenOCD', description: 'for Cortex-M chips', filters: ['AC5', 'AC6', 'GCC', 'IAR_ARM', 'RISCV_GCC', 'ANY_GCC'] },
+        { type: 'OpenOCD', description: 'for Cortex-M chips and MIPS chips', filters: ['AC5', 'AC6', 'GCC', 'IAR_ARM', 'MIPS_GCC', 'MTI_GCC', 'RISCV_GCC', 'ANY_GCC'] },
         { type: 'stcgal', description: 'for STC chips', filters: ['Keil_C51', 'SDCC'] },
         { type: 'STVP', description: 'for STM8 chips, only STLink interface', filters: ['IAR_STM8', 'SDCC', 'COSMIC_STM8'] },
         { type: 'Custom', label: 'Shell', description: 'download program by custom shell command' }
@@ -914,6 +914,10 @@ export interface OpenOCDFlashOptions extends UploadOption {
 
     interface: string;
 
+    use_custom_args: boolean;
+
+    custom_args: string;
+
     baseAddr?: string;
 }
 
@@ -943,23 +947,29 @@ class OpenOCDUploader extends HexUploader<string[]> {
 
         const commands: string[] = [];
 
-        const interfaceFileName = option.interface.startsWith('${workspaceFolder}/')
-            ? option.interface.replace('${workspaceFolder}/', '') : `interface/${option.interface}`;
+        if (!option.use_custom_args) {
 
-        const targetFileName = option.target.startsWith('${workspaceFolder}/')
-            ? option.target.replace('${workspaceFolder}/', '') : `target/${option.target}`;
+                const interfaceFileName = option.interface.startsWith('${workspaceFolder}/')
+                ? option.interface.replace('${workspaceFolder}/', '') : `interface/${option.interface}`;
 
-        const wsFolder = WorkspaceManager.getInstance().getWorkspaceRoot();
-        if (wsFolder) {
+            const targetFileName = option.target.startsWith('${workspaceFolder}/')
+                ? option.target.replace('${workspaceFolder}/', '') : `target/${option.target}`;
+
+            const wsFolder = WorkspaceManager.getInstance().getWorkspaceRoot();
+            if (wsFolder) {
+                commands.push(
+                    `-s "${wsFolder.path}"`
+                );
+            }
+
             commands.push(
-                `-s "${wsFolder.path}"`
+                `-f ${interfaceFileName}.cfg`,
+                `-f ${targetFileName}.cfg`,
             );
-        }
 
-        commands.push(
-            `-f ${interfaceFileName}.cfg`,
-            `-f ${targetFileName}.cfg`,
-        );
+        } else {
+            commands.push(option.custom_args);
+        }
 
         programs.forEach(file => {
             if (/\.bin$/i.test(file.path)) {

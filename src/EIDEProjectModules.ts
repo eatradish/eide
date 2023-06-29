@@ -31,7 +31,9 @@ import {
     view_str$flasher$external_loader,
     view_str$flasher$resetMode,
     view_str$flasher$other_cmds,
-    view_str$flasher$stcgalOptions
+    view_str$flasher$stcgalOptions,
+    view_str$flasher$useCustomArgs,
+    view_str$flasher$customArgs
 } from "./StringTable";
 import { ResManager } from "./ResManager";
 import { ArrayDelRepetition } from "../lib/node-utility/Utility";
@@ -2565,6 +2567,10 @@ class OpenOCDUploadModel extends UploadConfigModel<OpenOCDFlashOptions> {
                 return view_str$flasher$openocd_interface_cfg;
             case 'baseAddr':
                 return view_str$flasher$baseAddr;
+            case 'use_custom_args':
+                return view_str$flasher$useCustomArgs;
+            case 'custom_args':
+                return view_str$flasher$customArgs;
             default:
                 return super.GetKeyDescription(key);
         }
@@ -2579,6 +2585,8 @@ class OpenOCDUploadModel extends UploadConfigModel<OpenOCDFlashOptions> {
                     return (<any>this.data)[key].replace('${workspaceFolder}/', './') + '.cfg';
                 }
                 return 'null';
+            case 'use_custom_args':
+                return String((<any>this.data)[key]);
             default:
                 return super.getKeyValue(key);
         }
@@ -2586,6 +2594,11 @@ class OpenOCDUploadModel extends UploadConfigModel<OpenOCDFlashOptions> {
 
     isKeyEnable(key: string): boolean {
         switch (key) {
+            case 'target':
+            case 'interface':
+                return !(<any>this.data).use_custom_args;
+            case 'custom_args':
+                return (<any>this.data).use_custom_args;
             case 'baseAddr':
                 return /\.bin\b/i.test(this.data.bin);
             default:
@@ -2612,6 +2625,10 @@ class OpenOCDUploadModel extends UploadConfigModel<OpenOCDFlashOptions> {
                 return 'SELECTION';
             case 'interface':
                 return 'SELECTION';
+            case 'use_custom_args':
+                return 'SELECTION';
+            case 'custom_args':
+                return 'INPUT';
             case 'baseAddr':
                 return 'INPUT';
             default:
@@ -2685,6 +2702,11 @@ class OpenOCDUploadModel extends UploadConfigModel<OpenOCDFlashOptions> {
                         description: item.isInWorkspace ? 'in workspace' : undefined
                     };
                 });
+            case 'use_custom_args':
+                return [
+                    { label: 'true', val: true },
+                    { label: 'false', val: false }
+                ];
             default:
                 return super.GetSelectionList(key);
         }
@@ -2699,6 +2721,8 @@ class OpenOCDUploadModel extends UploadConfigModel<OpenOCDFlashOptions> {
             bin: '',
             target: 'stm32f1x',
             interface: 'stlink',
+            use_custom_args: false,
+            custom_args: '',
             baseAddr: '0x08000000'
         };
     }

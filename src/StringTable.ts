@@ -156,6 +156,16 @@ export const view_str$flasher$launchApp = [
     'Launch App After Program'
 ][langIndex];
 
+export const view_str$flasher$useCustomArgs = [
+    '使用自定义参数',
+    'Use Custom Args'
+][langIndex];
+
+export const view_str$flasher$customArgs = [
+    '自定义参数',
+    'Custom Args'
+][langIndex];
+
 export const view_str$flasher$options = [
     '其他选项',
     'Other Options'

@@ -31,6 +31,7 @@ import { newMessage } from "./Message";
 import { HexUploaderType, JLinkOptions, STVPFlasherOptions, ProtocolType, PyOCDFlashOptions, OpenOCDFlashOptions } from "./HexUploader";
 import { jsonc } from 'jsonc';
 import * as YAML from 'yaml';
+import { SettingManager } from "./SettingManager";
 
 interface Configuration {
     type: string;
@@ -100,6 +101,7 @@ class DebugGenerator extends IDebugConfigGenerator {
         this.providerMap = new Map();
 
         // register providers
+        this.add(new cppdbgConfigProvider());
         this.add(new CortexDebugConfigProvider());
         this.add(new STM8DebugConfigProvider());
     }
@@ -115,6 +117,7 @@ class DebugGenerator extends IDebugConfigGenerator {
         for (const gener of this.providerMap.values()) {
             // match toolchain
             if (gener.hexUploaderMatcher.includes(uploader)) {
+                console.log(uploader);
                 gener.update(this.project, config.configurations);
             }
         }
@@ -128,6 +131,123 @@ abstract class IDebugConfigProvider {
 }
 
 //============================== configuartion provider ====================================
+
+class cppdbgConfigProvider extends IDebugConfigProvider {
+
+    typeTag: string = 'cppdbg';
+
+    hexUploaderMatcher: HexUploaderType[] = ['OpenOCD'];
+
+    private openocdConnectConfig = {
+        miDebuggerServerAddress: 'localhost:3333',
+        useExtendedRemote: true,
+        filterStderr: true,
+        filterStdout: false,
+        serverStarted: 'Listening on port 4444 for telnet connections'
+    };
+
+    update(prj: AbstractProject, config_list: Configuration[]): void {
+
+        const prjConfig = prj.GetConfiguration<any>().config;
+        const uploader = prj.GetConfiguration().uploadConfigModel.uploader;
+        const uploader_name = uploader.toLowerCase();
+
+        let debugConfig: Configuration | undefined;
+
+        // find if config exists
+        let index = config_list.findIndex((conf) => {
+            return conf.type === this.typeTag && conf.name === `${this.typeTag} ${uploader_name}`;
+        });
+
+        if (index !== -1) {
+            debugConfig = config_list[index];
+        } else {
+            const def_list = this.getDefault();
+            index = def_list.findIndex((conf) => { return conf.name === `${this.typeTag} ${uploader_name}`; });
+            if (index !== -1) {
+                debugConfig = def_list[index];
+                config_list.push(debugConfig); // add to config list
+            }
+        }
+
+        // update config if found one
+        if (debugConfig) {
+
+            // must use elf to debug
+            debugConfig.program = prj.getOutputDir() + File.sep + prjConfig.name + '.elf';
+
+            // TODO: targetArchitecture for ARM & ARM64?
+            // Need to detect if a prj is 'arm' or 'arm64' when prjConfig.type === 'ARM'.
+            // Without targetArchitecture, cppdbg can auto detect arch in some cases,
+            // ARM & ARM64 may be fine, however MIPS generally need specifying.
+            if (prjConfig.type === 'MIPS') {
+                debugConfig.targetArchitecture = 'mips';
+            }
+
+            const toolchain = prj.getToolchain();
+            if (toolchain.getToolchainPrefix) {
+                debugConfig.miDebuggerPath = toolchain.getToolchainPrefix().trim() + 'gdb';
+            }
+
+            if (debugConfig.name == `${this.typeTag} ${uploader_name}`) {
+                if ('openocd' == debugConfig.name) {
+                    const openocdConf = <OpenOCDFlashOptions>JSON.parse(JSON.stringify(prjConfig.uploadConfig));
+
+                    debugConfig.debugServerPath = SettingManager.GetInstance().getOpenOCDExePath();
+
+                    if (!openocdConf.use_custom_args) {
+
+                        if (!openocdConf.interface.startsWith('${workspaceFolder}/')) {
+                            openocdConf.interface = `interface/${openocdConf.interface}`;
+                        }
+                        if (!openocdConf.target.startsWith('${workspaceFolder}/')) {
+                            openocdConf.target = `target/${openocdConf.target}`;
+                        }
+    
+                        debugConfig.debugServerArgs = `-f "${openocdConf.interface}.cfg" -f "${openocdConf.target}.cfg"`;
+
+                    } else {
+                        debugConfig.debugServerArgs = openocdConf.custom_args;
+                    }
+                }
+            }
+
+        }
+    }
+
+    private getDefault(): Configuration[] {
+        
+        // TODO: Provide a gdb commands editor, or maybe put them to debug.files.options.yml?
+        const setupCommands = [
+            { "text": "set endian little" },
+            { "text": "set mem inaccessible-by-default off" },
+            { "text": "set disassemble-next-line on" },
+            { "text": "-environment-cd ${workspaceFolder}" },
+            { "text": "dir src/asm" },
+        ];
+        const postRemoteConnectCommands = [
+            { "text": "set $pc=0xa0070000" },
+        ];
+
+        return [
+            Object.assign(
+                {
+                    cwd: '${workspaceFolder}',
+                    type: this.typeTag,
+                    request: 'launch',
+                    name: `${this.typeTag} openocd`,
+                    MIMode: 'gdb'
+                },
+                this.openocdConnectConfig,
+                {
+                    setupCommands,
+                    postRemoteConnectCommands
+                }
+            )
+        ];
+    }
+
+}
 
 class CortexDebugConfigProvider extends IDebugConfigProvider {
 
@@ -146,7 +266,7 @@ class CortexDebugConfigProvider extends IDebugConfigProvider {
 
         // find config is exist
         let index = config_list.findIndex((conf) => {
-            return conf.servertype === uploader_name || conf.name === uploader_name;
+            return conf.type === this.typeTag && (conf.servertype === uploader_name || conf.name === uploader_name);
         });
 
         if (index !== -1) { // found config
@@ -311,7 +431,7 @@ class STM8DebugConfigProvider extends IDebugConfigProvider {
         let debugConfig: Configuration | undefined;
 
         // find config is exist
-        let index = config_list.findIndex((conf) => { return conf.name === require_ser_name; });
+        let index = config_list.findIndex((conf) => { return conf.type === this.typeTag && conf.name === require_ser_name; });
 
         if (index !== -1) {
             debugConfig = config_list[index];
